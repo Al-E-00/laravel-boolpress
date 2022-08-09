@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -38,7 +39,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'=>'required|min:10',
+            'content'=>'required|min:15'
+        ]);
+
+        $post = new Post();
+
+        $post->fill($validatedData);
+
+        $post->slug = Str::slug($post->title);
+        
+
+
+        $post->save();
+
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
