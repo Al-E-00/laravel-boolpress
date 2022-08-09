@@ -21,5 +21,13 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::middleware("auth")->get('/admin', 'Admin\HomeController@index')->name('admin.index');
-Route::get('/admin/test', 'Admin\HomeController@test')->name('admin.test');
+Route::middleware("auth")
+->namespace("Admin") // -> folder where controller are located
+->name("admin.") // -> before every route I have this prefix
+->prefix("admin") // -> before every URI this prefix
+->group(function() {
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::get('/test', 'HomeController@test')->name('test');
+
+    Route::resource('posts', 'PostController');
+});
