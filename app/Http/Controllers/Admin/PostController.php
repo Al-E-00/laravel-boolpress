@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,9 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
-
-        return view('admin.posts.index', compact('posts'));
+        //
     }
 
     /**
@@ -25,9 +22,8 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin.posts.create');
+    public function create(){
+        //
     }
 
     /**
@@ -49,9 +45,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-
-        return view('admin.posts.show', compact('post'));
+        //
     }
 
     /**
@@ -62,9 +56,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
-        
-        return view('admin.posts.edit', compact('post'));
+        //
     }
 
     /**
