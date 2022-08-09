@@ -84,6 +84,13 @@
                     Laravel - public  space
                 </div>
 
+                @auth
+                <h2>User LOGGED IN {{Auth::user()->name}}</h2>
+                @endauth
+
+                @guest
+                <h2>User NOT LOGGED IN</h2>
+                @endguest
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
