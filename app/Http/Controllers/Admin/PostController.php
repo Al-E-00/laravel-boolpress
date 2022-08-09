@@ -45,12 +45,29 @@ class PostController extends Controller
         ]);
 
         $post = new Post();
-
         $post->fill($validatedData);
 
-        $post->slug = Str::slug($post->title);
+        $counter = 0;
         
+        do {
+            //slug generated from title
+            $slug = Str::slug($post->title);
 
+            //if counter > 0, concatenate its value at the slug
+            if($counter > 0) {
+                $slug .= '-' . $counter;
+            }
+
+            //check db if a similar slug exists
+            $slug_exists = Post::where('slug', $slug)->first();
+            //if exists, the counter is incremented
+            if ($slug_exists) {
+                $counter++;
+            } else {
+                //else I save the slug into the new post data
+                $post->slug = $slug;
+            }
+        } while ($slug_exists);
 
         $post->save();
 
