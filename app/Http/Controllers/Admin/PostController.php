@@ -22,6 +22,35 @@ class PostController extends Controller
 
         return $post;
     }
+
+    private function generateSlug($text) {
+        $toReturn = null;
+        $counter = 0;
+        
+        do {
+            //slug generated from title
+            $slug = Str::slug($text);
+
+            //if counter > 0, concatenate its value at the slug
+            if($counter > 0) {
+                $slug .= '-' . $counter;
+            }
+
+            //check db if a similar slug exists
+            $slug_exists = Post::where('slug', $slug)->first();
+            //if exists, the counter is incremented
+            if ($slug_exists) {
+                $counter++;
+            } else {
+                //else I save the slug into the new post data
+                $toReturn = $slug;
+            }
+        } while ($slug_exists);
+
+        return $toReturn;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -60,31 +89,11 @@ class PostController extends Controller
         $post = new Post();
         $post->fill($validatedData);
 
-        $counter = 0;
-        
-        do {
-            //slug generated from title
-            $slug = Str::slug($post->title);
-
-            //if counter > 0, concatenate its value at the slug
-            if($counter > 0) {
-                $slug .= '-' . $counter;
-            }
-
-            //check db if a similar slug exists
-            $slug_exists = Post::where('slug', $slug)->first();
-            //if exists, the counter is incremented
-            if ($slug_exists) {
-                $counter++;
-            } else {
-                //else I save the slug into the new post data
-                $post->slug = $slug;
-            }
-        } while ($slug_exists);
+        $post->slug = $this->generateSlug($post->title);
 
         $post->save();
 
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
@@ -122,7 +131,21 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        $validatedData = $request->validate([
+            'title'=>'required|min:10',
+            'content'=>'required|min:15'
+        ]);
+
         $post = $this->findBySlug($slug);
+
+        if($validatedData['title'] !== $post->title) {
+            $post->slug = $this->generateSlug($validatedData['title']);
+        }
+
+        $post->update($validatedData);
+
+        return redirect()->route('admin.posts.show', $post->slug);
+
     }
 
     /**
