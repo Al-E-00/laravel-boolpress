@@ -115,9 +115,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+
+        if(!$post) {
+            abort(404);
+        }
     }
 
     /**
