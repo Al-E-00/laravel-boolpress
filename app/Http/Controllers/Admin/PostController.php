@@ -10,6 +10,19 @@ use Illuminate\Support\Str;
 class PostController extends Controller
 {
     /**
+     * It return an element searching for its slug
+     * If the element is not found an error 404 it's launched
+     */
+    private function findBySlug($slug) {
+        $post = Post::where('slug', $slug)->first();
+
+        if(!$post) {
+            abort(404);
+        }
+
+        return $post;
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -82,11 +95,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->first();
-
-        if(!$post) {
-            abort(404);
-        }
+        $post = $this->findBySlug($slug);
 
         return view('admin.posts.show', compact('post'));
     }
@@ -99,11 +108,7 @@ class PostController extends Controller
      */
     public function edit($slug)
     {
-        $post = Post::where('slug', $slug)->first();
-
-        if(!$post) {
-            abort(404);
-        }
+        $post = $this->findBySlug($slug);
         
         return view('admin.posts.edit', compact('post'));
     }
@@ -117,11 +122,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $post = Post::where('slug', $slug)->first();
-
-        if(!$post) {
-            abort(404);
-        }
+        $post = $this->findBySlug($slug);
     }
 
     /**
@@ -130,8 +131,8 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        $post = $this->findBySlug($slug);
     }
 }
