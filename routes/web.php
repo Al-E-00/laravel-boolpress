@@ -30,4 +30,6 @@ Route::middleware("auth")
     Route::get('/test', 'HomeController@test')->name('test');
 
     Route::resource('posts', 'PostController');
+
+    Route::resource('users', 'UserController');
 });
