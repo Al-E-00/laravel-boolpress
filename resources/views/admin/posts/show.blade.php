@@ -22,7 +22,10 @@
                     <dd>{{ $post->slug }}</dd>
                     <dt>Contenuto</dt>
                     <dd>{{ $post->content }}</dd>
-
+                    <dt>Autore</dt>
+                    <dd>{{ $post->user->name }}</dd>
+                    <dt>Categoria</dt>
+                    <dd><a href="{{ route('admin.categories.posts', $post->category_id) }}">{{ $post->category ? $post->category->name : '' }}</dd></a>
                 </dl>
                 <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}" class="btn btn-warning">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
