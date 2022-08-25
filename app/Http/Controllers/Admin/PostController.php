@@ -5,53 +5,47 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    /**
-     * It return an element searching for its slug
-     * If the element is not found an error 404 it's launched
-     */
-    private function findBySlug($slug) {
-        $post = Post::where('slug', $slug)->first();
+    private function findBySlug($slug)
+    {
+        $post = Post::where("slug", $slug)->first();
 
-        if(!$post) {
+        if (!$post) {
             abort(404);
         }
 
         return $post;
     }
 
-    private function generateSlug($text) {
+    private function generateSlug($text)
+    {
         $toReturn = null;
         $counter = 0;
-        
+
         do {
-            //slug generated from title
             $slug = Str::slug($text);
 
-            //if counter > 0, concatenate its value at the slug
-            if($counter > 0) {
-                $slug .= '-' . $counter;
+            if ($counter > 0) {
+                $slug .= "-" . $counter;
             }
 
-            //check db if a similar slug exists
-            $slug_exists = Post::where('slug', $slug)->first();
-            //if exists, the counter is incremented
-            if ($slug_exists) {
+            $slug_esiste = Post::where("slug", $slug)->first();
+
+            if ($slug_esiste) {
                 $counter++;
             } else {
-                //else I save the slug into the new post data
                 $toReturn = $slug;
             }
-        } while ($slug_exists);
+        } while ($slug_esiste);
 
         return $toReturn;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -60,18 +54,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        //$posts = Post::orderBy('created_at', 'desc')->get();
-
         $user = Auth::user();
 
-        if($user->role === 'admin') {
-            $posts = Post::orderBy('created_at', 'desc')->get();
+        if ($user->role === "admin") {
+            $posts = Post::orderBy("created_at", "desc")->get();
         } else {
             $posts = $user->posts;
         }
-        
 
-        return view('admin.posts.index', compact('posts'));
+        return view("admin.posts.index", compact("posts"));
     }
 
     /**
@@ -82,8 +73,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+
+        return view("admin.posts.create", compact("categories", "tags"));
     }
 
     /**
@@ -94,11 +86,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
-            'title'=>'required|min:10',
-            'content'=>'required|min:15',
-            'category_id'=>'nullable|exists:categories, id'
+            "title" => "required|min:10",
+            "content" => "required|min:10",
+            "category_id" => "nullable|exists:categories,id",
+            "tags" => "nullable|exists:tags,id"
         ]);
+
 
         $post = new Post();
         $post->fill($validatedData);
@@ -108,7 +103,11 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('admin.posts.show', $post->slug);
+        if (key_exists("tags", $validatedData)) {
+            $post->tags()->attach($validatedData["tags"]);
+        }
+
+        return redirect()->route("admin.posts.show", $post->slug);
     }
 
     /**
@@ -121,7 +120,7 @@ class PostController extends Controller
     {
         $post = $this->findBySlug($slug);
 
-        return view('admin.posts.show', compact('post'));
+        return view("admin.posts.show", compact("post"));
     }
 
     /**
@@ -133,8 +132,10 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = $this->findBySlug($slug);
-        
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view("admin.posts.edit", compact("post", "categories", "tags"));
     }
 
     /**
@@ -147,20 +148,25 @@ class PostController extends Controller
     public function update(Request $request, $slug)
     {
         $validatedData = $request->validate([
-            'title'=>'required|min:10',
-            'content'=>'required|min:15'
+            "title" => "required|min:10",
+            "content" => "required|min:10",
+            "category_id" => "nullable|exists:categories,id",
+            "tags" => "nullable|exists:tags,id"
         ]);
-
         $post = $this->findBySlug($slug);
 
-        if($validatedData['title'] !== $post->title) {
-            $post->slug = $this->generateSlug($validatedData['title']);
+        if ($validatedData["title"] !== $post->title) {
+            $post->slug = $this->generateSlug($validatedData["title"]);
+        }
+        if (key_exists("tags", $validatedData)) {
+            $post->tags()->sync($validatedData["tags"]);
+        } else {
+            $post->tags()->sync([]);
         }
 
         $post->update($validatedData);
 
-        return redirect()->route('admin.posts.show', $post->slug);
-
+        return redirect()->route("admin.posts.show", $post->slug);
     }
 
     /**
@@ -173,8 +179,10 @@ class PostController extends Controller
     {
         $post = $this->findBySlug($slug);
 
+        $post->tags()->detach();
+
         $post->delete();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route("admin.posts.index");
     }
 }
