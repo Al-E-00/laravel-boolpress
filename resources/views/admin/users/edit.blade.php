@@ -54,7 +54,7 @@
                     <div class="form-group">
                         <label>Phone</label>
                         <input  name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" rows="10"
-                            required value="{{ old('phone_number', $user->details->phone_number) }}">
+                            required value="{{ old('phone_number', $user->details->phone_number ? $user->details->phone_number : '') }}">
                         @error('phone_number')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label>Address</label>
                         <input name="user_address" class="form-control @error('user_address') is-invalid @enderror" rows="10"
-                            required value="{{ old('user_address', $user->details->user_address) }}">
+                            required value="{{ old('user_address', $user->details->user_address ? $user->details->user_address : '') }}">
                         @error('user_address')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

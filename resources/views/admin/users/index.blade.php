@@ -34,7 +34,7 @@
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
                                     </a>
-                                    @if ($user->role == 'admin')
+                                    @if (Auth::user()->role == 'admin')
                                         <a class="btn btn-warning btn-sm"
                                             href="{{ route('admin.users.edit', ['user' => $user->id]) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
