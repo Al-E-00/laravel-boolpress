@@ -81,18 +81,23 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         if(!$user->details){
-            $user->details = new UserDetail();
+/*             $user->details = new UserDetail();
 
             $user->details->user_id = $user->id;
             $user->details->fill($data);
             $user->details->save();
+ */
+            $user->details = UserDetail::create([
+                "user_id" => $user->id,
+                ...$data
+            ]);
         } else {
             $user->details->update($data);
         }
 
         $user->update($data);
 
-        return redirect()->route('admin.users.show', $user->id);
+        return redirect()->route('admin.users.edit', $user->id);
     }
 
     /**
