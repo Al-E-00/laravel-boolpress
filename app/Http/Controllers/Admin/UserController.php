@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\UserDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -61,6 +63,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->role !== 'admin'){
+            abort(401);
+        }
         $user = User::findOrFail($id);
 
         return view('admin.users.edit', [
@@ -108,6 +113,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if(Auth::user()->role !== 'admin'){
+            abort(401);
+        }
         $user = User::findOrFail($id);
 
         $user->delete();
