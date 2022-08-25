@@ -26,9 +26,11 @@
                     <dd>{{ $post->user->name }}</dd>
                     <dt>Categoria</dt>
                     <dd>
+                        @if($post->category)
                         <a href="{{ route('admin.categories.posts', $post->category_id ? $post->category->name : ' ') }}">
                             {{ $post->category ? $post->category->name : ' ' }}
                         </a>
+                        @endif
                     </dd>
 
                     <dt>Tags</dt>

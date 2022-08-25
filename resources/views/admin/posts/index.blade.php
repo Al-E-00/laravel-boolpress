@@ -17,6 +17,7 @@
                             <th>Titolo</th>
                             <th>Slug</th>
                             <th>Autore</th>
+                            <th>Categoria / Tags</th>
                             <th class="text-center">Azioni</th>
                         </tr>
                     </thead>
@@ -27,6 +28,10 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->slug }}</td>
                                 <td>{{ $post->user->name }}</td>
+                                <td>
+                                {{ $post->category ? $post->category->name : '' }}
+                                <br>
+                                {{ $post->tags->implode('name', ' - ') }}                         
                                 <td>
                                     <a class="btn btn-info btn-sm"
                                         href="{{ route('admin.posts.show', ['post' => $post->slug]) }}">
