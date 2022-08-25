@@ -32,4 +32,6 @@ Route::middleware("auth")
     Route::resource('posts', 'PostController');
 
     Route::resource('users', 'UserController');
+
+    Route::get('/categories/{category}/posts', 'CategoryController@posts')->name('categories.posts');
 });
