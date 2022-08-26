@@ -15,7 +15,12 @@
                         </svg> Tutti i posts
                     </a>
                 </div>
-                <dl>
+                <div class="row">
+                    <div class="col">
+                        <img width="550px" src="{{asset("/storage/" . $post->image_path)}}" alt="">
+                    </div>
+                    <div class="col">                
+                    <dl>
                     <dt>Titolo</dt>
                     <dd>{{ $post->title }}</dd>
                     <dt>Slug</dt>
@@ -66,6 +71,10 @@
                         </svg> Elimina
                     </button>
                 </form>
+            </div>
+
+                </div>
+
             </div>
         </div>
     </div>

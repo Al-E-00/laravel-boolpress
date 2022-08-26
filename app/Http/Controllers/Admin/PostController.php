@@ -8,6 +8,7 @@ use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -91,13 +92,20 @@ class PostController extends Controller
             "title" => "required|min:10",
             "content" => "required|min:10",
             "category_id" => "nullable|exists:categories,id",
-            "tags" => "nullable|exists:tags,id"
+            "tags" => "nullable|exists:tags,id",
+            "image_path"=>"required|image"
         ]);
 
 
         $post = new Post();
         $post->fill($validatedData);
         $post->user_id = Auth::user()->id;
+
+
+        $file = $validatedData["image_path"];
+        $filePath = Storage::put("/", $file);
+
+        $post->image_path = $filePath;
 
         $post->slug = $this->generateSlug($post->title);
 
@@ -106,6 +114,8 @@ class PostController extends Controller
         if (key_exists("tags", $validatedData)) {
             $post->tags()->attach($validatedData["tags"]);
         }
+
+
 
         return redirect()->route("admin.posts.show", $post->slug);
     }
@@ -180,6 +190,8 @@ class PostController extends Controller
         $post = $this->findBySlug($slug);
 
         $post->tags()->detach();
+
+        Storage::delete($post->image_path);
 
         $post->delete();
 
