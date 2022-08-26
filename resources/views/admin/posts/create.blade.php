@@ -37,6 +37,10 @@
                         @enderror
                     </div>
 
+                    <div>
+                        <input name="image_path"  type="file" enctype="multipart/form-data" id="customFileLangHTML">
+                    </div>
+
                     <div class="form-group">
                         <label>Categoria</label>
                         <select type="text" name="category_id"
