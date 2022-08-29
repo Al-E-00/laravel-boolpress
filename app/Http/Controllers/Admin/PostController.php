@@ -93,7 +93,7 @@ class PostController extends Controller
             "content" => "required|min:10",
             "category_id" => "nullable|exists:categories,id",
             "tags" => "nullable|exists:tags,id",
-            "image_path"=>"required|image"
+            "image_path"=>"required|mimes"
         ]);
 
 
@@ -162,7 +162,7 @@ class PostController extends Controller
             "content" => "required|min:10",
             "category_id" => "nullable|exists:categories,id",
             "tags" => "nullable|exists:tags,id",
-            "image_path" => "nullable|image"
+            "image_path" => "nullable|mimes"
         ]);
         $post = $this->findBySlug($slug);
 
