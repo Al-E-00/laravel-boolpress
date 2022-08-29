@@ -41,9 +41,9 @@
                         @enderror
                     </div>
 
-                    <div>
-                        <input name="image_path"  type="file" enctype="multipart/form-data" id="customFileLangHTML">
-                    </div>
+                    <file-input name="image_path">
+
+                    </file-input>
 
                     <div class="form-group">
                         <label>Contenuto</label>

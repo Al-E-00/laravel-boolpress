@@ -93,7 +93,7 @@ class PostController extends Controller
             "content" => "required|min:10",
             "category_id" => "nullable|exists:categories,id",
             "tags" => "nullable|exists:tags,id",
-            "image_path"=>"required|image"
+            "image_path"=>"nullable|mimes:jpg,jpeg,gif,svg,png"
         ]);
 
 
@@ -162,7 +162,7 @@ class PostController extends Controller
             "content" => "required|min:10",
             "category_id" => "nullable|exists:categories,id",
             "tags" => "nullable|exists:tags,id",
-            "image_path" => "nullable|image"
+            "image_path"=> "nullable|mimes:jpg,jpeg,gif,svg,png"
         ]);
         $post = $this->findBySlug($slug);
 
@@ -178,6 +178,7 @@ class PostController extends Controller
         //post image delete -> from public folder->
         // then update of the new one
         Storage::delete($post->image_path);
+
         $file = $validatedData["image_path"];
         $filePath = Storage::put("/", $file);
 
