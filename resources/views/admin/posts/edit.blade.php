@@ -41,7 +41,7 @@
                         @enderror
                     </div>
 
-                    <file-input name="image">
+                    <file-input name="image_path">
 
                     </file-input>
 
