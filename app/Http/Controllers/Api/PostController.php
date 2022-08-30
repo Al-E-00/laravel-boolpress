@@ -38,6 +38,8 @@ class PostController extends Controller
     public function show($slug) {
         $post = Post::where("slug", $slug)->first();
 
+        $post->load("category", "tags", "user:id,name");
+
         $post->image_path = Storage::url($post->image_path);
 
         return response()->json($post);

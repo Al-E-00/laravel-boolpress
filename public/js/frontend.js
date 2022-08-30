@@ -2483,11 +2483,19 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "col"
-  }, [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
+  }, [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("h3", [_vm._v("Post by " + _vm._s(_vm.post.user.name))]), _vm._v(" "), _c("p", {
     domProps: {
       innerHTML: _vm._s(_vm.post.content)
     }
-  })])])])]);
+  }), _vm._v(" "), _vm.post.category ? _c("div", {
+    staticClass: "mt-3"
+  }, [_c("h4", [_vm._v("Category:")]), _vm._v("  " + _vm._s(_vm.post.category.name))]) : _vm._e(), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", {
+    staticClass: "mt-3"
+  }, [_c("h4", [_vm._v("Tags:")]), _vm._v(" "), _c("ul", _vm._l(_vm.post.tags, function (tag) {
+    return _c("li", {
+      key: tag.id
+    }, [_vm._v(_vm._s(tag.name))]);
+  }), 0)]) : _vm._e()])])])]);
 };
 
 var staticRenderFns = [];

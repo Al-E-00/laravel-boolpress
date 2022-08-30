@@ -8,8 +8,17 @@
                 </div>
                 <div class="col">
                     <h1>{{  post.title  }}</h1>
+                    <h3>Post by {{post.user.name}}</h3>
                     <p v-html="post.content"></p>
 
+                    <div class="mt-3" v-if="post.category">
+                        <h4>Category:</h4>  {{post.category.name}}</div>
+                    <div class="mt-3" v-if="post.tags.length > 0">
+                        <h4>Tags:</h4>
+                        <ul>
+                            <li v-for="tag in post.tags" :key="tag.id">{{tag.name}}</li>
+                        </ul>    
+                    </div>
                 </div>
             </div>
         </div>
