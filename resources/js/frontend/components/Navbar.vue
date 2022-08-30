@@ -17,7 +17,8 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    
+                    <router-link :to="{ name: 'home' }">Home</router-link>
+                    <router-link :to="{ name: 'contacts' }">Contacts</router-link>
                 </ul>
             </div>
         </div>
