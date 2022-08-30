@@ -35,3 +35,8 @@ Route::middleware("auth")
 
     Route::get('/categories/{category}/posts', 'CategoryController@posts')->name('categories.posts');
 });
+
+
+Route::get("{any?}", function() {
+    return view("welcome");
+})->where("any", ".*");

@@ -1,5 +1,5 @@
 <template>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="/">
                 Faceposts
@@ -17,7 +17,12 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    
+                    <li class="nav-item">
+                        <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" :to="{ name: 'contacts' }">Contacts</router-link>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -25,7 +30,7 @@
 </template>
 
 <script>
-    export default {
+export default {
 
-    }
+}
 </script>
