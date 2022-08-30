@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -32,5 +33,13 @@ class PostController extends Controller
         });
 
         return response()->json($posts);
+    }
+
+    public function show($slug) {
+        $post = Post::where("slug", $slug)->first();
+
+        $post->image_path = Storage::url($post->image_path);
+
+        return response()->json($post);
     }
 }
