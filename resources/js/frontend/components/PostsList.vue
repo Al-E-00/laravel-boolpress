@@ -1,52 +1,65 @@
 <template>
-    <div class="row row-cols-3 mt-5">
-        <div class="card mb-3" style="width: 18rem;" v-for="post in posts" :key="post.id">
-            <img :src="getImage(post)" class="card-img-top" :alt="post.title">
+    <div>
+        <div class="row row-cols-2">
+            <div class="col" v-for="post in posts" :key="post.id">
+                <div class="card mb-4">
+                    <img :src="getImageSrc(post)" class="card-img-top">
 
-            <div class="card-body">
-                <h5 class="card-title"> {{post.title}} </h5>
-                <p class="card-text">
-                    {{post.content}}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{  post.title  }}</h5>
+                        <p class="card-text" v-html="post.content"></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+
             </div>
         </div>
+
+        <Pagination :current-page="paginationData.current_page" :next-page="paginationData.current_page + 1"
+            :total-pages="paginationData.last_page" @changePage="onChangePage"></Pagination>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import Pagination from "./Pagination.vue";
 
 export default {
     data() {
         return {
-            posts: []
-        }
+            posts: [],
+            paginationData: {}
+        };
     },
     methods: {
-        fetchPosts() {
-            axios.get("/api/posts")
-            .then((resp) => {
-                this.posts = resp.data
-            })
+        fetchPosts(newPage = 1) {
+            axios.get("/api/posts?page=" + newPage)
+                .then((resp) => {
+                    this.posts = resp.data.data;
+                    this.paginationData = resp.data;
+                    console.log(this.posts);
+                });
         },
-        getImage(post) {
-            if(!post.image_path) {
-                return "/images/placeholder.webp"
-            } 
-
-            return  post.image_path
+        getImageSrc(post) {
+            if (!post.cover_img) {
+                return "/images/image-placeholder.jpeg";
+            }
+            return post.cover_img;
+        },
+        onChangePage(newPage) {
+            this.fetchPosts(newPage);
         }
     },
     mounted() {
         this.fetchPosts();
-    }
+    },
+    components: { Pagination }
 }
 </script>
 
-
 <style>
-    .card-img-top {
-        aspect-ratio: 16/9;
-        object-fit: cover;
-    }
+.card-img-top {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
 </style>
