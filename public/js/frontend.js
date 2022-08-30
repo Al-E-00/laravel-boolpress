@@ -2120,19 +2120,25 @@ var render = function render() {
     staticClass: "navbar-nav mr-auto"
   }), _vm._v(" "), _c("ul", {
     staticClass: "navbar-nav ml-auto"
+  }, [_c("li", {
+    staticClass: "nav-item"
   }, [_c("router-link", {
+    staticClass: "nav-link",
     attrs: {
       to: {
         name: "home"
       }
     }
-  }, [_vm._v("Home")]), _vm._v(" "), _c("router-link", {
+  }, [_vm._v("Home")])], 1), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("router-link", {
+    staticClass: "nav-link",
     attrs: {
       to: {
         name: "contacts"
       }
     }
-  }, [_vm._v("Contacts")])], 1)])])]);
+  }, [_vm._v("Contacts")])], 1)])])])]);
 };
 
 var staticRenderFns = [function () {
