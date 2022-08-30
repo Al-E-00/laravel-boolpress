@@ -2290,12 +2290,17 @@ var render = function render() {
       domProps: {
         innerHTML: _vm._s(post.content)
       }
-    }), _vm._v(" "), _c("a", {
+    }), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
       attrs: {
-        href: "#"
+        to: {
+          name: "posts.show",
+          params: {
+            slug: post.slug
+          }
+        }
       }
-    }, [_vm._v("Go somewhere")])])])]);
+    }, [_vm._v("Detail")])], 1)])]);
   }), 0), _vm._v(" "), _c("Pagination", {
     attrs: {
       "current-page": _vm.paginationData.current_page,
@@ -19214,9 +19219,9 @@ var routes = [{
   component: _pages_contacts_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   name: "contacts"
 }, {
-  path: "/posts/idpost",
+  path: "/posts/:slug",
   component: _pages_posts_show_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-  name: "post.show"
+  name: "posts.show"
 }];
 
 /***/ }),

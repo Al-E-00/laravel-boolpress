@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     public function store(Request $request){
+        
         $data = $request->all();
 
         return [
