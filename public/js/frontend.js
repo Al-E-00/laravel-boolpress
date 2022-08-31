@@ -2488,7 +2488,8 @@ var render = function render() {
       width: "350px"
     },
     attrs: {
-      src: _vm.post.image_path
+      src: _vm.post.image_path,
+      onerror: "this.src='/images/placeholder.webp'"
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "col"

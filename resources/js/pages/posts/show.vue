@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-4">
 
-                    <img :src='post.image_path' style="width: 350px" class="mt-4"/>
+                    <img :src='post.image_path' style="width: 350px" class="mt-4"  onerror="this.src='/images/placeholder.webp'"/>
                     
                 </div>
                 <div class="col">
