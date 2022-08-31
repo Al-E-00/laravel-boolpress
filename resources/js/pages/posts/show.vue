@@ -1,10 +1,12 @@
 <template>
     <div>
         <div class="container">
-            <h1>Show page #{{ post.id }}</h1>
+            <h1 class="mt-4">Show page #{{ post.id }}</h1>
             <div class="row">
                 <div class="col-4">
-                    <img :src="post.image_path" alt="" class="img-fluid">
+
+                    <img :src='post.image_path' style="width: 350px" class="mt-4"/>
+                    
                 </div>
                 <div class="col">
                     <h1>{{  post.title  }}</h1>

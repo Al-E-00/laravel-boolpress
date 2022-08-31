@@ -1992,15 +1992,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/posts?page=" + newPage).then(function (resp) {
         _this.posts = resp.data.data;
         _this.paginationData = resp.data;
-        console.log(_this.posts);
       });
-    },
-    getImageSrc: function getImageSrc(post) {
-      if (!post.cover_img) {
-        return "/images/image-placeholder.jpeg";
-      }
-
-      return post.cover_img;
     },
     onChangePage: function onChangePage(newPage) {
       this.fetchPosts(newPage);
@@ -2308,7 +2300,8 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "card-img-top",
       attrs: {
-        src: _vm.getImageSrc(post)
+        src: post.image_path,
+        onerror: "this.src='/images/placeholder.webp'"
       }
     }), _vm._v(" "), _c("div", {
       staticClass: "card-body"
@@ -2483,15 +2476,19 @@ var render = function render() {
 
   return _c("div", [_c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("Show page #" + _vm._s(_vm.post.id))]), _vm._v(" "), _c("div", {
+  }, [_c("h1", {
+    staticClass: "mt-4"
+  }, [_vm._v("Show page #" + _vm._s(_vm.post.id))]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-4"
   }, [_c("img", {
-    staticClass: "img-fluid",
+    staticClass: "mt-4",
+    staticStyle: {
+      width: "350px"
+    },
     attrs: {
-      src: _vm.post.image_path,
-      alt: ""
+      src: _vm.post.image_path
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "col"
@@ -2528,7 +2525,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card-img-top {\n    aspect-ratio: 16/9;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n", ""]);
+exports.push([module.i, "\n.card-img-top {\n    aspect-ratio: 16/9;\n    -o-object-fit: contain;\n       object-fit: contain;\n}\n", ""]);
 
 // exports
 
