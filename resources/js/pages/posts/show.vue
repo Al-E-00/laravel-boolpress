@@ -21,6 +21,9 @@
                             <li v-for="tag in post.tags" :key="tag.id">{{tag.name}}</li>
                         </ul>    
                     </div>
+                    <div class="mt-5">
+                        <router-link :to="{name: 'home'}" class="btn btn-primary">All Posts</router-link>
+                    </div>
                 </div>
             </div>
         </div>

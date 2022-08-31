@@ -2505,7 +2505,16 @@ var render = function render() {
     return _c("li", {
       key: tag.id
     }, [_vm._v(_vm._s(tag.name))]);
-  }), 0)]) : _vm._e()])])])]);
+  }), 0)]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "mt-5"
+  }, [_c("router-link", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      to: {
+        name: "home"
+      }
+    }
+  }, [_vm._v("All Posts")])], 1)])])])]);
 };
 
 var staticRenderFns = [];

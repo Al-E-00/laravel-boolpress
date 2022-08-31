@@ -22,9 +22,12 @@
                 </div>
 
                 <div class="links-page mt-3 mb-3 d-flex justify-content-center">
-                    <button type="button" class="btn btn-info" onclick="window.location='{{ url("admin/posts") }}'">Posts</button>
-                    <button type="button" class="btn btn-info ml-3" onclick="window.location='{{ url("admin/users") }}'">Users</button>
+                    <button type="button" class="btn btn-warning" onclick="window.location='{{ url("admin/posts") }}'">Posts</button>
+                    <button type="button" class="btn btn-warning ml-3" onclick="window.location='{{ url("admin/users") }}'">Users</button>
                     <button type="button" class="btn btn-danger ml-3" onclick="window.location='{{ url("/logout") }}'">Logout</button>
+                </div>
+                <div class="links-page mt-3 mb-3 d-flex justify-content-center">
+                    <button type="button" class="btn btn-success" onclick="window.location='{{ url("/") }}'">Public page</button>
                 </div>
             </div>
         </div>
