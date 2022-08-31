@@ -93,7 +93,7 @@ class PostController extends Controller
             "content" => "required|min:10",
             "category_id" => "nullable|exists:categories,id",
             "tags" => "nullable|exists:tags,id",
-            "image_path"=>"required|mimes:jpg,jpeg,gif,svg,png"
+            "image_path"=>"required|images"
         ]);
 
 

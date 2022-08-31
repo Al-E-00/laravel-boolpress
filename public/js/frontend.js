@@ -2173,7 +2173,7 @@ var render = function render() {
         name: "contacts"
       }
     }
-  }, [_vm._v("Contacts")])], 1)])])])]);
+  }, [_vm._v("Contacts")])], 1), _vm._v(" "), _vm._m(1)])])])]);
 };
 
 var staticRenderFns = [function () {
@@ -2192,6 +2192,18 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "navbar-toggler-icon"
   })]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "/admin"
+    }
+  }, [_vm._v("Admin")])]);
 }];
 render._withStripped = true;
 

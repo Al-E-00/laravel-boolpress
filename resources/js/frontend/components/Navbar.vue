@@ -23,6 +23,10 @@
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{ name: 'contacts' }">Contacts</router-link>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin" >Admin</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
