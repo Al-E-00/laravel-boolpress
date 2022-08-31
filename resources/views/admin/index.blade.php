@@ -7,12 +7,10 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
+                <div class="container">
+                    <h1>@{{helloMessage}}</h1>
+                </div>
 
-                <h1>@{{helloMessage}}</h1>
-
-                <ul>
-                    <li v-for="element in elements" >@{{element}}</li>
-                </ul>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -21,6 +19,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                </div>
+
+                <div class="links-page mt-3 mb-3 d-flex justify-content-center">
+                    <button type="button" class="btn btn-info mr-3" onclick="window.location='{{ url("admin/posts") }}'">Posts</button>
+                    <button type="button" class="btn btn-info ml-3" onclick="window.location='{{ url("admin/users") }}'">Users</button>
                 </div>
             </div>
         </div>

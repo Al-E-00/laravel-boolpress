@@ -49585,8 +49585,7 @@ var app = new Vue({
   el: '#app',
   data: function data() {
     return {
-      helloMessage: "Message from Vue.js",
-      elements: ["element 1", "element 2", "element 3"]
+      helloMessage: "Welcome to the admin page"
     };
   }
 });

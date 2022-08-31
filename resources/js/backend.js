@@ -32,14 +32,7 @@ const app = new Vue({
     el: '#app',
     data() {
         return  {
-            helloMessage : "Message from Vue.js",
-            elements: [
-                "element 1",
-                "element 2",
-                "element 3",
-
-            ]
-
+            helloMessage : "Welcome to the admin page",
         }
     }
 });

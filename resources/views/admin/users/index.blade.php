@@ -7,6 +7,9 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h1>Registered users</h1>
 
+                    <a href="{{ route('admin.index') }}" class="btn btn-secondary">
+                        <i class="fa fa-angle-left mr-3"></i> Dashboard
+                    </a>
                 </div>
                 <table class="table">
                     <thead>

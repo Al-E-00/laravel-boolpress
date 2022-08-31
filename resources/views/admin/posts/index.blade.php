@@ -6,9 +6,14 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <h1>Tutti i posts</h1>
-                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
-                        Crea nuovo post
-                    </a>
+                    <div>
+                        <a href="{{ route('admin.index') }}" class="btn btn-secondary">
+                            <i class="fa fa-angle-left mr-3"></i> Dashboard
+                        </a>
+                        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
+                            Crea nuovo post
+                        </a>
+                    </div>
                 </div>
                 <table class="table">
                     <thead>

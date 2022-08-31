@@ -111,6 +111,10 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Register') }}
                                     </button>
+
+                                    <button class="btn btn-secondary" type="button" onclick="window.location='{{ url("login") }}'" >
+                                        Go to login
+                                    </button>
                                 </div>
                             </div>
                         </form>

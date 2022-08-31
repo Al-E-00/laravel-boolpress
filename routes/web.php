@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,30 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
 });
+ */
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/user', 'HomeController@user')->name('home.user');
 
 Route::middleware("auth")
-->namespace("Admin") // -> folder where controller are located
-->name("admin.") // -> before every route I have this prefix
-->prefix("admin") // -> before every URI this prefix
-->group(function() {
-    Route::get('/', 'HomeController@index')->name('index');
-    Route::get('/test', 'HomeController@test')->name('test');
+    ->namespace("Admin") // -> folder where controller are located
+    ->name("admin.") // -> before every route I have this prefix
+    ->prefix("admin") // -> before every URI this prefix
+    ->group(function () {
+        Route::get('/', 'HomeController@index')->name('index');
+        
+        Route::get('/test', 'HomeController@test')->name('test');
 
-    Route::resource('posts', 'PostController');
+        Route::resource('posts', 'PostController');
 
-    Route::resource('users', 'UserController');
+        Route::resource('users', 'UserController');
 
-    Route::get('/categories/{category}/posts', 'CategoryController@posts')->name('categories.posts');
-});
+        Route::get('/categories/{category}/posts', 'CategoryController@posts')->name('categories.posts');
+    });
 
 
-Route::get("{any?}", function() {
+Route::get("{any?}", function () {
     return view("welcome");
 })->where("any", ".*");
